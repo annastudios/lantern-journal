@@ -1,0 +1,118 @@
+.react-calendar {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #f5efe1;
+  font-family: var(--font-inter);
+}
+
+.react-calendar button {
+  font: inherit;
+}
+
+.react-calendar__navigation {
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  align-items: center;
+  height: 42px;
+  margin-bottom: 18px;
+}
+
+.react-calendar__navigation button {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #f5efe1;
+  font-size: 25px;
+  line-height: 1;
+  transition: color 160ms ease;
+}
+
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:focus {
+  background: transparent;
+  color: #f4d27a;
+}
+
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  display: none;
+}
+
+.react-calendar__navigation__label {
+  pointer-events: none;
+  color: #f5efe1 !important;
+  font-size: 15px !important;
+  font-weight: 700;
+}
+
+.react-calendar__month-view__weekdays {
+  margin-bottom: 10px;
+  color: #d3d7de;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+}
+
+.react-calendar__month-view__days {
+  row-gap: 7px;
+}
+
+.react-calendar__tile {
+  position: relative;
+  display: grid;
+  height: 39px;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #f5efe1;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.react-calendar__tile:hover,
+.react-calendar__tile:focus {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.react-calendar__tile--now {
+  background: transparent;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:hover,
+.react-calendar__tile--active:focus {
+  background: #f4c56d !important;
+  color: #17120b !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #818997;
+}
+
+.entry-dot {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #8b5cf6;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.85);
+  transform: translateX(-50%);
+}
+
+.react-calendar__tile--active .entry-dot {
+  background: #6d28d9;
+  box-shadow: none;
+}
