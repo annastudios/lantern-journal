@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+import { getRandomPrompt, writingPrompts } from "@/lib/prompts";
 
 type EntryImage = {
   id: string;
@@ -12,7 +13,7 @@ type EntryImage = {
   src: string;
 };
 
-type IconName = "arrow" | "image" | "save" | "close" | "spark";
+type IconName = "arrow" | "image" | "save" | "close" | "spark" | "shuffle";
 
 function Icon({ name, className = "" }: { name: IconName; className?: string }) {
   const common = {
@@ -66,6 +67,16 @@ function Icon({ name, className = "" }: { name: IconName; className?: string }) 
           <path d="M17 18h4" />
         </svg>
       );
+    case "shuffle":
+      return (
+        <svg {...common}>
+          <path d="m18 4 3 3-3 3" />
+          <path d="M3 7h4a4 4 0 0 1 3.4 1.9l4.2 6.2A4 4 0 0 0 18 17h3" />
+          <path d="m18 20 3-3-3-3" />
+          <path d="M3 17h4a4 4 0 0 0 3.4-1.9l.6-.9" />
+          <path d="M13.4 8.9 14 8" />
+        </svg>
+      );
   }
 }
 
@@ -88,6 +99,20 @@ export default function NewEntryPage() {
   const [tagInput, setTagInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [prompt, setPrompt] = useState(writingPrompts[0]);
+
+  useEffect(() => {
+    setPrompt(getRandomPrompt());
+  }, []);
+
+  function shufflePrompt() {
+    setPrompt((current) => getRandomPrompt(current));
+  }
+
+  function usePrompt() {
+    setContent((current) => (current.trim() ? current : `${prompt}\n\n`));
+    textareaRef.current?.focus();
+  }
 
   async function saveEntry() {
     if (!title.trim() || (!content.trim() && images.length === 0)) {
@@ -328,13 +353,28 @@ export default function NewEntryPage() {
                   height={64}
                 />
               </div>
-              <div className="flex items-center gap-2 text-[#f4d27a]">
-                <Icon name="spark" className="size-5" />
-                <h2 className="text-[17px] font-semibold text-white">Writing cue</h2>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 text-[#f4d27a]">
+                  <Icon name="spark" className="size-5" />
+                  <h2 className="text-[17px] font-semibold text-white">Writing cue</h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={shufflePrompt}
+                  aria-label="Get another prompt"
+                  className="grid size-8 shrink-0 place-items-center rounded-lg border border-white/10 text-[#c7ced8] transition hover:border-[#f4d27a]/45 hover:text-[#f4d27a]"
+                >
+                  <Icon name="shuffle" className="size-4" />
+                </button>
               </div>
-              <p className="mt-4 text-sm leading-6 text-[#aeb7c4]">
-                What felt heavier or lighter than usual today?
-              </p>
+              <p className="mt-4 text-sm leading-6 text-[#aeb7c4]">{prompt}</p>
+              <button
+                type="button"
+                onClick={usePrompt}
+                className="mt-4 text-sm font-semibold text-[#f4d27a] transition hover:text-[#f8d282]"
+              >
+                Use this prompt
+              </button>
             </section>
 
             <section className="rounded-2xl border border-white/10 bg-[#151a22]/78 p-5 shadow-[0_18px_50px_rgba(0,0,0,0.22)]">
