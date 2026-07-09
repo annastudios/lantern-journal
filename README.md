@@ -1,6 +1,6 @@
 # Lantern
 
-Lantern is a private journaling app for quiet thoughts, memories, and daily reflection. It's built as a warm, distraction-free space to write — with a calendar view to browse past entries and a writing prompt feature for days when you don't know where to start.
+Lantern is a private journaling app for quiet thoughts, memories, and daily reflection. It's built as a warm, distraction-free space to write, with a calendar view to browse past entries and a writing prompt feature for days when you don't know where to start.
 
 ## Features
 
