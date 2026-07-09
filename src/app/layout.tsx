@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Lora, Nunito_Sans } from "next/font/google";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: "Lantern",
@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 const inter = Nunito_Sans({
